@@ -39,11 +39,9 @@ class LinkedList {
 	append (node) {
 		let current;
         if (!this.head) {
-            this.head = node;
-            current = this.head; 
+            this.head = node; 
         } else {
         	current = this.head;
-        	console.log(current);
             while (current.nextNode) {
                 current = current.nextNode;  
             }
@@ -59,7 +57,7 @@ class LinkedList {
         let position = index,
             current = this.head;
         while (position !== 0 ) {
-            current = current.next;
+            current = current.nextNode;
             position--;
         }
         return current;
@@ -67,10 +65,22 @@ class LinkedList {
 
     setNode (index, digital) {
     	try {
-            getNode(index).setDigital(digital);
+            this.getNode(index).setDigital(digital);
     	} catch (e) {
     		throw e;
     	}
+    }
+
+    toString () {
+    	let arr = [],
+    	    position = 0,
+    	    current = this.head;
+    	while (position < this.length) {
+    		arr.push(current.getDigital());
+            current = current.nextNode;
+            position++;
+    	}
+    	console.log(`LinkedList: ${arr}`);
     }
 }
 
@@ -86,8 +96,9 @@ console.log(node2.getDigital());
 let ll = new LinkedList();
 ll.append(node1);
 ll.append(node2);
-ll.getNode(0).getDigital();
-ll.getNode(1).getDigital();
+console.log(ll.getNode(0).getDigital());
+console.log(ll.getNode(1).getDigital());
 ll.setNode(1,33);
-ll.getNode(1).getDigital();
+console.log(ll.getNode(1).getDigital());
+ll.toString();
 
