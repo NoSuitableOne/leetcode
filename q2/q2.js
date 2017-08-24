@@ -72,6 +72,12 @@ class LinkedList {
     }
 
     toString () {
+    	let arr = this.toArray();
+    	console.log(`LinkedList: ${arr}`);
+    	return arr.toString();
+    }
+
+    toArray () {
     	let arr = [],
     	    position = 0,
     	    current = this.head;
@@ -80,25 +86,40 @@ class LinkedList {
             current = current.nextNode;
             position++;
     	}
-    	console.log(`LinkedList: ${arr}`);
+    	return arr;
     }
 }
 
+function addTwoNumbers (LinkedList1, LinkedList2) {
+    let result = '',
+        arr = [],
+        ll = new LinkedList(),
+        num1 = parseInt(LinkedList1.toArray().reverse().join('')),
+        num2 = parseInt(LinkedList2.toArray().reverse().join(''));
+        
+    result = (num1 + num2).toString().split('').reverse().join('');
+    for (let i of result) {
+        let node = new Node(parseInt(i));
+        ll.append(node);
+    }
+    return ll;
+} 
 
-let node1 = new Node(100),
-    node2 = new Node(200);
-node1.linkNextNode(node2);
+let node2 = new Node(2),
+    node3 = new Node(3),
+    node4 = new Node(4),
+    node5 = new Node(5),
+    node6 = new Node(6),
+    lList1 = new LinkedList(),
+    lList2 = new LinkedList(),
+    lList = new LinkedList();
 
-console.log(node1.getDigital());
-node1.nextNode.setDigital(20)
-console.log(node2.getDigital());
+lList1.append(node2);
+lList1.append(node4);
+lList1.append(node3);
+lList2.append(node5);
+lList2.append(node6);
+lList2.append(node4);
 
-let ll = new LinkedList();
-ll.append(node1);
-ll.append(node2);
-console.log(ll.getNode(0).getDigital());
-console.log(ll.getNode(1).getDigital());
-ll.setNode(1,33);
-console.log(ll.getNode(1).getDigital());
-ll.toString();
-
+lList = addTwoNumbers(lList1, lList2);
+lList.toString();
