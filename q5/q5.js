@@ -1,3 +1,5 @@
+'use etrict';
+
 /**
 /* @params str
 /* return palindromicStr
@@ -15,7 +17,7 @@ function longestPalindromicSubstring (str) {
         tempResult = tryOddCase(i, strArr, edgeLength);
         result = result.length < tempResult.length? tempResult : result;
 
-        tempResult = tryOddCase(i, strArr, edgeLength);
+        tempResult = tryEvenCase(i, strArr, edgeLength);
         result = result.length < tempResult.length? tempResult : result;           
         
     }
@@ -26,11 +28,12 @@ function longestPalindromicSubstring (str) {
 
 function tryEvenCase (index, strArr, edgeLength) {
     let result = '';
-	for (let j = 0; j < edgeLength; j++) {
-        if (strArr[index - j] !== strArr[index + j]) {
+    console.log(edgeLength);
+	for (let j = 1; j < edgeLength; j++) {
+        if (strArr[index - (j - 1)] !== strArr[index + j]) {
             return result; 
         } else {
-            result = strArr.slice(index - j, index + j + 1).join('');
+            result = strArr.slice(index - (j - 1), index + j + 1).join('');
         }
     }
     return result;
@@ -48,5 +51,5 @@ function tryOddCase (index, strArr, edgeLength) {
     return result;	
 }
 
-let str = 'sccskiikkbbmooomb';
+let str = 'sccskiikkbbmooombb';
 console.log(longestPalindromicSubstring(str));
