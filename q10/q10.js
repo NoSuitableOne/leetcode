@@ -40,10 +40,16 @@ class Linkedlist {
     }
     //todo
     unshift () {
-    	this.head = this.head.next;
-    	this.head.previous.next = null;
-    	this.head.previous = null;
-    	this.length--;
+    	let node = new Node(this.head.content);
+    	if (this.head.next) {
+    	    this.head = this.head.next;
+    	    this.head.previous.next = null;
+    	    this.head.previous = null;
+    	} else {
+            this.head = null;
+    	}
+    	this.length--;    		
+    	return node; 
     }
 
     show () {
@@ -75,7 +81,8 @@ function isMatch(str,reg) {
 
     //match
     result = doTask(regTask, strLinkedlist);
-    
+
+    return result;    
 }
 
 function registerRegTask (reg) {
@@ -100,24 +107,13 @@ function linkedStr (str) {
 }
 
 function doTask (regTask, strLinkedlist) {
+    let index = 0;
     for (let i of regTask) {
-    	let result = false,
-    	    cache = [];
+    	let result = false;
         
-        if (i.length === 1 && i !== '.') {
-    		if (!cache.length) {	
-    		    result = matchSingalWord(i, strLinkedlist);
-    	        strLinkedlist.unshift();
-    		} else {
-                let cachedLinkedlist = new Linkedlist();
-                while (!strLinkedlist.length && !result) {
-                    result = matchSingalWord(i, strLinkedlist);
-                    cachedLinkedlist.append(strLinkedlist.unshift());
-                }
-    			while (cache.length) {
-    				matchStar(cachedLinkedlist, cache[cache.length - 1]);
-    			}
-    		}
+        if (i.length === 1 && i !== '.') {	
+    		result = matchSingalWord(i, strLinkedlist);
+    	    strLinkedlist.unshift();
     		console.log('str:' + strLinkedlist.head.content + ';singalweord:' + result);
         } else if (i === '.') {
     		console.log('/./');
@@ -125,20 +121,40 @@ function doTask (regTask, strLinkedlist) {
     		strLinkedlist.unshift();
     		console.log('str:' + strLinkedlist.head.content + ';dot:' + result);
     	} else if (i.length === 2 && i !== '.*') {
+    		i = i.replace('*', '');
     		console.log('/*/:' + i);
-    		cache.push(i);
-    		continue;
+    		let baseLength = strLinkedlist.length;
+    	    strLinkedlist = matchStar(i, strLinkedlist);
+    	    strLinkedlist.show();
+            result = true;
+            result = checkNextDot(index, regTask, strLinkedlist, baseLength);
     	} else if (i === '.*') {
+    		let baseContent = strLinkedlist.head.content,
+    		    baseLength = strLinkedlist.length;
     		console.log('/.*/:' + i);
-    		//result = matchStar(i, strLinkedlist);
-    	} 
+    		strLinkedlist = matchStar(baseContent, strLinkedlist);
+    		result = true;            
+            result = checkNextDot(index, regTask, strLinkedlist, baseLength);    		
+    	}
 
-        if (!result) {
+    	if (!strLinkedlist.length && (index < regTask.length - 1)) {
+            for (let j in regTask) {
+            	if (j.length === 1) {
+            		console.log("too more tasks false:" + index);
+                    result = false;
+            	}
+            }  
+    	}
+
+        if (result) {
+        	index++;
+        	console.log('index:' +index)
+        } else {
         	return result;
         }
     }
-
-    if (str.lenth) {
+    console.log(strLinkedlist.length);
+    if (strLinkedlist.length) {
         return false;
     }
 
@@ -147,24 +163,33 @@ function doTask (regTask, strLinkedlist) {
 
 //four task case
 function matchSingalWord (i, strLinkedlist) {
-    let result;
-    console.log('i----' + i);
+    let result = false;
     result = i === strLinkedlist.head.content ? true : false;
     return result;
 }
 function matchDot (strLinkedlist) {
-	let result;
+	let result = false;
 	result = strLinkedlist.head ? true : false;
 	return result;
 }
-function matchStar (strLinkedlist) {
-    let result;
-
+function matchStar (i, strLinkedlist) {
+    while (strLinkedlist.length) {
+        if (i !== strLinkedlist.head.content) {
+        	break;
+        }
+        strLinkedlist.unshift();
+    }
+    return strLinkedlist;
 }
-function matchDotStar (strLinkedlist) {
-
+function checkNextDot (index, regTask, strLinkedlist, baseLength) {
+	let result = true;
+	if (index < (regTask.length - 1) && regTask[index + 1] === '.') {
+        result = baseLength > strLinkedlist.length? true : false;
+    }
+    return result;
 }
-isMatch('aabbbbbb', 'a.b*.*e.');
+
+console.log(isMatch('aabbbbbb', '..b.*.'));
 
 //x*。b和xxb
 //x*。和xx
