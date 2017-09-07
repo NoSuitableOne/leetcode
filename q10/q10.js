@@ -2,7 +2,7 @@
 
 /**
 /* @params str, reg  
-/* return boolean 
+/* @return boolean 
 **/
 class Node {
 	constructor (content) {

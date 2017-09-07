@@ -2,7 +2,7 @@
 
 /* 
 /* @params LinkedList1,LinkedList2
-/* return LinkedList
+/* @return LinkedList
 */
 
 class Node {

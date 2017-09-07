@@ -2,7 +2,7 @@
 
 /**
 /* @params nums1, nums2
-/* return median
+/* @return median
 **/
 
 function calculateMedian (nums1, nums2) {

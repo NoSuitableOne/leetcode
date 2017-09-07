@@ -2,7 +2,7 @@
 
 /**
 /* @params str
-/* return palindromicStr
+/* @return palindromicStr
 **/
 
 function longestPalindromicSubstring (str) {

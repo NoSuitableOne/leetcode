@@ -2,7 +2,7 @@
 
 /* 
 /* @params str
-/* return number
+/* @return number
 */
 function LongestSubstringLehgth(str) {
 	let arr = str.split(''),

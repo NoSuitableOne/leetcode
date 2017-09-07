@@ -2,7 +2,7 @@
 
 /**
 /* @params numberArr  
-/* return size 
+/* @return size 
 **/
 function maxArea (numberArr) {
 	let size = 0;

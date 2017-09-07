@@ -2,7 +2,7 @@
 
 /**
 /* @params number
-/* return reverseNumber 
+/* @return reverseNumber 
 **/
 function reverseInteger (number) {
     let str = number.toString(),

@@ -2,7 +2,7 @@
 
 /* 
 /* @params arr,sum
-/* return [index1, index2]
+/* @return [index1, index2]
 */
 
 function twoAdd (arr = [], sum = 0) {

@@ -2,7 +2,7 @@
 
 /**
 /* @params number
-/* return true/false 
+/* @return true/false 
 **/
 function isPalindromenumber (number) {
     if (number > 0 && number % 10 === 0) {
