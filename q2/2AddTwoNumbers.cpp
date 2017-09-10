@@ -6,7 +6,7 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
